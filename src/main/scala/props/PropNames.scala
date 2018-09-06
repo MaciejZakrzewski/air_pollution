@@ -17,4 +17,6 @@ object PropNames {
   val PROP_GEGR_ADDRESS_STREET              = "addressStreet"
   val PROP_CITY                             = "city"
 
+  val PROP_STATIONS_KEY                     = "stations"
+
 }
