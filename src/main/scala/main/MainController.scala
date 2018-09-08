@@ -1,10 +1,14 @@
 package main
 
-import props.PropNames
-import service.StationService
+import service.{SensorsService, StationsService}
 
 object MainController extends App {
-//  StationService.getAllStationsFromApi.get.foreach(println)
 
-  StationService.getAllStationsFromCache.get.foreach(println)
+  StationsService.getAllStationsFromCache.get.foreach(println)
+
+  StationsService.getStationsByName("Wrocław - Bartnicza").foreach(println)
+
+  SensorsService.getAllSensorsFromApiWithId(114).get.foreach(println)
+
+  println(SensorsService.getSensorData(642).get)
 }

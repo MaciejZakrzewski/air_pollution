@@ -13,21 +13,15 @@ import com.typesafe.scalalogging.Logger
 import org.slf4j.LoggerFactory
 import scalacache.modes.try_._
 
-object StationService {
-  private val LOG: Logger = Logger(LoggerFactory.getLogger(StationService.getClass))
+object StationsService {
+  private val LOG: Logger = Logger(LoggerFactory.getLogger(StationsService.getClass))
 
   val jedisPool = new JedisPool(PropUrls.PROP_LOCALHOST, PropUrls.REDIS_PORT)
   implicit val stationsCache: Cache[String] = RedisCache(jedisPool)
 
   def getAllStationsFromApi: Option[Seq[Station]] = {
-    val request = sttp.get(uri"${PropUrls.PROP_GET_ALL_STATIONS_URL}")
 
-    implicit val backend: SttpBackend[Id, Nothing] = HttpURLConnectionBackend()
-
-    LOG.debug("Sending request: {}", PropUrls.PROP_GET_ALL_STATIONS_URL)
-    val response = request.send()
-
-    cacheStations(response.unsafeBody)
+    cacheStations(ApiSenderService.getDataFromApi(PropUrls.PROP_GET_ALL_STATIONS_URL))
 
     val cachedStations = getCachedStations(PropNames.PROP_STATIONS_KEY)
 
@@ -46,6 +40,15 @@ object StationService {
     LOG.debug("Getting cached stations with key: {}", key)
 
     get(key).getOrElse(None)
+  }
+
+  def getStationsByName(name: String): Seq[Station] = {
+    val stations = getAllStationsFromCache
+
+    if (stations.isDefined)
+      stations.get.filter(_.stationName == name)
+    else
+      Nil
   }
 
   private[this] def cacheStations(stationsString: String): Unit = {

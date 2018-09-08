@@ -19,4 +19,18 @@ object PropNames {
 
   val PROP_STATIONS_KEY                     = "stations"
 
+  val PROP_STATION_ID                       = "stationId"
+  val PROP_SENSOR_PARAM                     = "param"
+
+  val PROP_SENSOR_PARAM_NAME                = "paramName"
+  val PROP_SENSOR_PARAM_FORMULA             = "paramFormula"
+  val PROP_SENSOR_PARAM_CODE                = "paramCode"
+  val PROP_SENSOR_PARAM_ID                  = "idParam"
+
+  val PROP_SENSOR_DATA_KEY                  = "key"
+  val PROP_SENSOR_DATA_VALUES               = "values"
+
+  val PROP_SENSOR_DATA_VALUE_DATE           = "date"
+  val PROP_SENSOR_DATA_VALUE_VALUE          = "value"
+
 }
