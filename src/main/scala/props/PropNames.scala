@@ -33,4 +33,15 @@ object PropNames {
   val PROP_SENSOR_DATA_VALUE_DATE           = "date"
   val PROP_SENSOR_DATA_VALUE_VALUE          = "value"
 
+  val PROP_INDEX_ST_INDEX_LEVEL             = "stIndexLevel"
+  val PROP_INDEX_SO2_INDEX_LEVEL            = "so2IndexLevel"
+  val PROP_INDEX_NO2_INDEX_LEVEL            = "no2IndexLevel"
+  val PROP_INDEX_CO_INDEX_LEVEL             = "coIndexLevel"
+  val PROP_INDEX_PM10_INDEX_LEVEL           = "pm10IndexLevel"
+  val PROP_INDEX_PM25_INDEX_LEVEL           = "pm25IndexLevel"
+  val PROP_INDEX_O3_INDEX_LEVEL             = "o3IndexLevel"
+  val PROP_INDEX_C6H6_INDEX_LEVEL           = "c6h6IndexLevel"
+
+  val PROP_INDEX_LEVEL_NAME                 = "indexLevelName"
+
 }

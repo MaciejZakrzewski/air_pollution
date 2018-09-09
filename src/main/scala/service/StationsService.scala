@@ -1,6 +1,5 @@
 package service
 
-import com.softwaremill.sttp.{Id, _}
 import model.{City, Commune, Station}
 import play.api.libs.json._
 import play.api.libs.functional.syntax._

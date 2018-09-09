@@ -1,6 +1,6 @@
 package main
 
-import service.{SensorsService, StationsService}
+import service.{AirQualityIndexesService, SensorsService, StationsService}
 
 object MainController extends App {
 
@@ -11,4 +11,6 @@ object MainController extends App {
   SensorsService.getAllSensorsFromApiWithId(114).get.foreach(println)
 
   println(SensorsService.getSensorData(642).get)
+
+  println(AirQualityIndexesService.getAirQualityIndex(114).get)
 }
