@@ -40,7 +40,15 @@ object SensorsService {
     val filteredSensorsData = new ListBuffer[SensorData]()
 
     sensorsData.foreach(sensorData => {
-      val filteredValues = sensorData.values.filter(_ == sensorData.values.head)
+      var sensorHead = sensorData.values.head
+
+      if (sensorHead.value.isEmpty) {
+        val withoutFirst = sensorData.values.tail
+
+        sensorHead = withoutFirst.head
+      }
+
+      val filteredValues = sensorData.values.filter(_ == sensorHead)
 
       val dataToPut = SensorData(sensorData.key, filteredValues)
 

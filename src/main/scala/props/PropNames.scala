@@ -19,6 +19,8 @@ object PropNames {
 
   val PROP_STATIONS_KEY                     = "stations"
 
+  val PROP_SAVED_STATIONS_KEY               = "users_stations"
+
   val PROP_STATION_ID                       = "stationId"
   val PROP_SENSOR_PARAM                     = "param"
 

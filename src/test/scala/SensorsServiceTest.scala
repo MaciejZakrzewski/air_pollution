@@ -18,4 +18,12 @@ class SensorsServiceTest extends FunSuite {
     assert(data.nonEmpty)
   }
 
+  test("SensorsService.getSensorDataForStations") {
+    val data = SensorsService.getSensorDataForStation(950)
+
+    assert(data._1 != null)
+
+    assert(data._2.nonEmpty)
+  }
+
 }

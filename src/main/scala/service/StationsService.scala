@@ -62,6 +62,12 @@ object StationsService {
     }
   }
 
+  def getStationsByIds(stationsIds: List[Int]): Seq[Station] = {
+    val stations = getAllStationsFromCache
+
+    stations.get.filter(x => stationsIds.contains(x.id))
+  }
+
   private[this] def cacheStations(stationsString: String): Unit = {
     LOG.debug("Caching stations")
 
