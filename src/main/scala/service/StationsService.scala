@@ -50,6 +50,18 @@ object StationsService {
       Nil
   }
 
+  def getStationById(stationId: Int): Station = {
+    val stations = getAllStationsFromCache
+
+    if (stations.isDefined) {
+      val filteredStations = stations.get.filter(_.id == stationId)
+
+      filteredStations.head
+    } else {
+      null
+    }
+  }
+
   private[this] def cacheStations(stationsString: String): Unit = {
     LOG.debug("Caching stations")
 

@@ -8,6 +8,8 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import props.{PropNames, PropUrls}
 
+import scala.collection.mutable.ListBuffer
+
 object SensorsService {
   private val LOG: Logger = Logger(LoggerFactory.getLogger(SensorsService.getClass))
 
@@ -25,6 +27,27 @@ object SensorsService {
     val url = PropUrls.PROP_GET_SENSOR_DATA_URL + sensorId
 
     parseSensorDataJson(ApiSenderService.getDataFromApi(url))
+  }
+
+  def getSensorDataForStation(stationId: Int): (Station, ListBuffer[SensorData]) = {
+    val sensors = getAllSensorsFromApiWithId(stationId)
+
+    val sensorsData = new ListBuffer[SensorData]()
+
+    if (sensors.isDefined)
+      sensors.get.foreach(x => sensorsData += getSensorData(x.id).get)
+
+    val filteredSensorsData = new ListBuffer[SensorData]()
+
+    sensorsData.foreach(sensorData => {
+      val filteredValues = sensorData.values.filter(_ == sensorData.values.head)
+
+      val dataToPut = SensorData(sensorData.key, filteredValues)
+
+      filteredSensorsData += dataToPut
+    })
+
+    (StationsService.getStationById(stationId), filteredSensorsData)
   }
 
   private[this] def parseSensorDataJson(sensorDataJson: String): Option[SensorData] = {
