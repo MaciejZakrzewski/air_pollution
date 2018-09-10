@@ -4,7 +4,10 @@ version := "0.1"
 
 scalaVersion := "2.12.6"
 
-libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12"
+libraryDependencies ++= Seq(
+  "org.scalafx" %% "scalafx" % "8.0.102-R11",
+  "org.scalafx" %% "scalafxml-core-sfx8" % "0.3"
+)
 
 libraryDependencies += "com.softwaremill.sttp" %% "core" % "1.3.2"
 
