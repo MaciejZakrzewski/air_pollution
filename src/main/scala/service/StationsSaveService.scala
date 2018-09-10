@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory
 import scalacache.modes.try_._
 import service.StationsService.{LOG, jedisPool}
 
+import scala.collection.mutable.ListBuffer
+
 object StationsSaveService {
   private val LOG: Logger = Logger(LoggerFactory.getLogger(StationsSaveService.getClass))
 
@@ -20,10 +22,13 @@ object StationsSaveService {
   implicit val stationsIdsCache: Cache[List[Int]] = RedisCache(jedisPool)
 
 
-  def addStationsToCache(stationsIds: List[Int]): Unit = {
-    LOG.debug("Adding stations ids to cache: {}", stationsIds)
+  def addStationToCache(stationId: Int): Unit = {
+    LOG.debug("Adding stations id to cache: {}", stationId)
 
-    put(PropNames.PROP_SAVED_STATIONS_KEY)(stationsIds)
+    val stationsIds: ListBuffer[Int] = getCachedStationsIds.to[ListBuffer]
+    stationsIds += stationId
+
+    put(PropNames.PROP_SAVED_STATIONS_KEY)(stationsIds.toList)
   }
 
   def removeStationsFromCache(stationIds: List[Int]): Unit = {
@@ -51,7 +56,7 @@ object StationsSaveService {
 
     val cachedIds = get(PropNames.PROP_SAVED_STATIONS_KEY).getOrElse(None)
 
-    cachedIds.get
+    cachedIds.getOrElse(List.empty)
   }
 
   def getCachedStationsObjects: Seq[Station] = {
